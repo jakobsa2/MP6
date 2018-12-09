@@ -7,7 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Base64;
+
 public class NBA extends AppCompatActivity {
+
     public static final String EXTRA_NUMBER_1 = "com.example.jakobsa2.finalprojectui.EXTRA_NUMBER_1";
     public static final String EXTRA_NUMBER_2 = "com.example.jakobsa2.finalprojectui.EXTRA_NUMBER_2";
     public static final String EXTRA_NUMBER_3 = "com.example.jakobsa2.finalprojectui.EXTRA_NUMBER_3";
@@ -41,6 +49,7 @@ public class NBA extends AppCompatActivity {
                 nbaLookup();
             }
         });
+
     }
 
     public void nbaHome() {
@@ -52,6 +61,7 @@ public class NBA extends AppCompatActivity {
         startActivity(open);
     }
     public void nbaLookup() {
+
         EditText nbaMonth = (EditText) findViewById(R.id.nba_month);
         int sendNbaMonth = Integer.parseInt(nbaMonth.getText().toString());
         EditText nbaDay = (EditText) findViewById(R.id.nba_day);

@@ -32,24 +32,25 @@
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/nba_api_month"
+            android:id="@+id/nba_api_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/nba_api_day"
+            android:id="@+id/nba_api_away"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="36sp" />
 
         <TextView
-            android:id="@+id/nba_api_year"
+            android:id="@+id/nba_api_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="36sp" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
