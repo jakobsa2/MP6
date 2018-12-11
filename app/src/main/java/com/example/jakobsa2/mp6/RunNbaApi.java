@@ -18,6 +18,7 @@ import java.util.Base64;
 
 public class RunNbaApi extends AppCompatActivity {
     private Button home;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,7 @@ public class RunNbaApi extends AppCompatActivity {
         Get task = new Get();
         task.execute(yeaR + montH + daY);
 
+
         //Set up Home Button
         home = findViewById(R.id.home_run_nba_api);
         home.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +69,14 @@ public class RunNbaApi extends AppCompatActivity {
 
     //Output the api results
     public static String[] nbaApi(String input) {
-        String[] one = new String[] {input, "a", "b"};
-        return one;
+        int awayId = input.indexOf("awayScoreTotal");
+        int awayTeam = input.indexOf("abbreviation");
+        int homeId = input.indexOf("homeScoreTotal");
+        int homeTeam = input.indexOf("abbreviation", input.indexOf("abbreviation") + 1);
+        String x = input.substring(awayId + 16, input.indexOf(',', awayId + 16));
+        String y = input.substring(homeId + 16, input.indexOf(',', homeId + 16));
+        String[] returnMe = {x, input.substring(awayTeam + 15, awayTeam + 18), y, input.substring(homeTeam + 15, homeTeam + 18)};
+        return returnMe;
     }
 
     private static String montH;
@@ -80,7 +88,7 @@ public class RunNbaApi extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
                 String line;
-                URL url = new URL("https://api.mysportsfeeds.com/v2.0/pull/nba/2018-2019/date/" + strings[0] +"/games.json");
+                URL url = new URL("https://api.mysportsfeeds.com/v2.0/pull/nba/2018-2019/date/" + strings[0] + "/games.json");
                 String encoding = Base64.getEncoder().encodeToString(("ee556f63-0aba-4fee-bd4c-76479a:MYSPORTSFEEDS").getBytes());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -101,12 +109,15 @@ public class RunNbaApi extends AppCompatActivity {
         protected void onPostExecute (String s) {
             String[] content = nbaApi(s);
 
-            TextView homeTeam = (TextView) findViewById(R.id.nba_api_home);
-            TextView awayTeam = (TextView) findViewById(R.id.nba_api_away);
-            TextView score = (TextView) findViewById(R.id.nba_api_score);
+            TextView homeTeam = (TextView) findViewById(R.id.nba_home_team);
+            TextView awayTeam = (TextView) findViewById(R.id.nba_away_team);
+            TextView homeScore = (TextView) findViewById(R.id.nba_home_score);
+            TextView awayScore = (TextView) findViewById(R.id.nba_away_score);
+
             homeTeam.setText("" + content[0]);
             awayTeam.setText("" + content[1]);
-            score.setText("" + content[2]);
+            homeScore.setText("" + content[2]);
+            awayScore.setText("" + content[3]);
         }
     }
 }
